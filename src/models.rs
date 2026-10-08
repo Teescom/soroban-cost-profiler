@@ -274,12 +274,13 @@ pub enum Metric {
 ///
 /// Three answers to three different questions. `folded` is the one every other document in this
 /// repository describes, because speedscope.app and `flamegraph.pl` read it and `compare` re-reads
-/// it. `json` is the same tree for a program that has to walk it — with one thing the folded format
-/// cannot carry: the metric and the file name are fields in the document, so a JSON artifact cannot
-/// be silently diffed against a run that disagreed on `--metric` the way two `.folded` files can.
-/// `raw` is the event stream before aggregation, which is the only one of the three that shows a
-/// reader what the engine actually reported — one line per recorded event, no source names, no tree
-/// — and therefore the only one whose output changes when #210's instruction hook lands.
+/// it. `json` is the same tree for a program that has to walk it — with two things the folded format
+/// has nowhere to put: the metric and each frame's source file are fields in the document, so a JSON
+/// artifact cannot be silently diffed against a run that disagreed on `--metric` the way two
+/// `.folded` files can. `raw` is the event stream before aggregation, which is the only one of the
+/// three that shows a reader what the engine actually reported — one line per recorded event, no
+/// source names, no tree — and therefore the only one whose output changes when #210's instruction
+/// hook lands.
 #[derive(clap::ValueEnum, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Format {
     Folded,
